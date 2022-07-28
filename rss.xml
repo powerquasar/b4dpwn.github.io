@@ -8,8 +8,9 @@
         <pubDate>Thu, 28 Jul 2022 06:21:30 +0800</pubDate>
         <lastBuildDate>Thu, 28 Jul 2022 06:21:30 +0800</lastBuildDate>
         <category>reverse</category>
-        <category>ctfshowpwn</category>
         <category>crypto</category>
+        <category>CTF</category>
+        <category>ctfshowpwn</category>
         <category>pwn</category>
         <item>
             <guid isPermalink="true">http://powerquasar.github.io/2022/07/28/litCTF2022re/</guid>
@@ -94,6 +95,60 @@ print(flag)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;然后根据题意，将得到的值md5一下，然后再包上DASCTF{}即可&lt;/p&gt;
 &lt;p&gt;完结，撒花&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/07/17/NepCTF2022wp/</guid>
+            <title>NepCTF2022wp</title>
+            <link>http://powerquasar.github.io/2022/07/17/NepCTF2022wp/</link>
+            <category>CTF</category>
+            <pubDate>Sun, 17 Jul 2022 17:20:56 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;Crypto:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;sign in&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;下载附件知这是一道rsa题目，由题目可知要用到中国剩余定理。阅读题目代码可以发现q,p很接近，所以直接用费马分解。然后用中国剩余定理(CRT)求解即可&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095503217.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;​                                            &lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095520575.png&#34;&gt; &lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;p&gt;中学数学&lt;br&gt;同样也是一道rsa题目，用费马分解得到p,q，然后rsa常规解(求逆元d，接着求明文m)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095557024.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095608031.png&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Reverse:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;快来签到&lt;br&gt;由题目提示可知，此题与cfg有关,32位elf程序用ida打开程序，F5提示main函数太大无法反编译，于是修改ida中cfg文件下的hexrays.cfg的MAX_FUNCSIZE =1024(原本是64)，重新打开程序，按F5可以反编译，查看程序，发现有很多片段，将Text view转为Graph view。发现片段太多不能转。然后&lt;/p&gt;
+&lt;p&gt; &lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095718121.png&#34;&gt;&lt;br&gt;原本数值很小，把这个改为一个非常大的值，然后就可以转了&lt;br&gt;转换后缩小发现&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095737728.png&#34;&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Get flag&lt;br&gt;2.    We_can_gone:&lt;br&gt;32位exe程序，用ida打开，搜索字符串，交叉引用找到关键字符串所在的函数。&lt;/p&gt;
+&lt;p&gt;发现有几个函数未知，直接下断点动调F8到达这里&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095819370.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;每个函数都点进去看看，发现sub_3B9630()函数有&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095834947.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可知这里应该与flag有关，并且flag长度为23。F8往下，然后F7进入这个函数&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095902467.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;到这里有个判断，猜测应该是验证输入的flag，看一下dword_46B6E0&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095920171.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;发现已经初始化好了，然后直接提取里面的值&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728095944613.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;尝试提交，正确&lt;br&gt;Flag:NepCTF{U9eT_t0_th3TRUE}&lt;/p&gt;
+&lt;p&gt;Misc:&lt;br&gt;1.少见的base：&lt;br&gt;下载得到一张图片，尝试各种处理jpg的工具。使用stegdetect发现是jphide隐写，使用工具jphs解密，得到：KkYWdvCQcLYewSUUy5TtQc9AMa&lt;br&gt;Base挨个试，发现base58时，解密得到flag：flag{Real_qiandao~}&lt;/p&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;9点直播：&lt;br&gt;看直播得flag：NepCTF{bad_woman_nb!}&lt;/li&gt;
+&lt;li&gt;   陷阱？馅饼！：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;发现有个琼，说明地点在海南，然后通过搜索和观察，得知是光大银行&lt;br&gt;尝试提交，得到正确flag：NepCTF{&lt;a href=&#34;http://www.cebbank.com}/&#34;&gt;www.cebbank.com}&lt;/a&gt;&lt;br&gt;4.    问卷：&lt;br&gt;没啥好说的。&lt;br&gt;5.    签到题：&lt;br&gt;由题目可知是套了很多层zip压缩包，网上搜一下批量解压缩包脚本，解出来一个keyboard.pcap文件,用wirshark打开发现是usb流量，使用Tshark提取数据，然后处理一下数据，用脚本跑，可以得到&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728100056809.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;提交发现不对，尝试用下划线分隔，得到正确flag：nepctf{welcome_to_nepctf_2nd}&lt;br&gt;6.花花画画花花花&lt;br&gt;下载得到osz文件，搜索发现需要用osu！打开&lt;/p&gt;
+&lt;p&gt;右键点击发现可以编辑，&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728100156982.png&#34;&gt; 然后发现CTF&lt;/p&gt;
+&lt;p&gt; &lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728100205910.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/17/NepCTF2022wp/image-20220728100228968.png&#34;&gt;![image-&lt;/p&gt;
+&lt;p&gt;写出来得flag：NepCTF{MASTER_OF_坏女人！}&lt;/p&gt;
  ]]></description>
         </item>
         <item>

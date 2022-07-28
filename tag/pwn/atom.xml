@@ -5,8 +5,9 @@
     <link href="http://powerquasar.github.io" />
     <updated>2022-05-05T05:45:30.000Z</updated>
     <category term="reverse" />
-    <category term="ctfshowpwn" />
     <category term="crypto" />
+    <category term="CTF" />
+    <category term="ctfshowpwn" />
     <category term="pwn" />
     <entry>
         <id>http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/</id>

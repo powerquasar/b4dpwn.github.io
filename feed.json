@@ -25,6 +25,16 @@
             ]
         },
         {
+            "id": "http://powerquasar.github.io/2022/07/17/NepCTF2022wp/",
+            "url": "http://powerquasar.github.io/2022/07/17/NepCTF2022wp/",
+            "title": "NepCTF2022wp",
+            "date_published": "2022-07-17T09:20:56.000Z",
+            "content_html": "<p>Crypto:</p>\n<ol>\n<li><p>sign in</p>\n</li>\n<li><p>下载附件知这是一道rsa题目，由题目可知要用到中国剩余定理。阅读题目代码可以发现q,p很接近，所以直接用费马分解。然后用中国剩余定理(CRT)求解即可</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095503217.png\"></p>\n<p>​                                            <img src=\"/2022/07/17/NepCTF2022wp/image-20220728095520575.png\"> </p>\n</li>\n</ol>\n<ol start=\"2\">\n<li><p>中学数学<br>同样也是一道rsa题目，用费马分解得到p,q，然后rsa常规解(求逆元d，接着求明文m)</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095557024.png\"></p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095608031.png\"></p>\n</li>\n</ol>\n<p>Reverse:</p>\n<ol>\n<li><p>快来签到<br>由题目提示可知，此题与cfg有关,32位elf程序用ida打开程序，F5提示main函数太大无法反编译，于是修改ida中cfg文件下的hexrays.cfg的MAX_FUNCSIZE =1024(原本是64)，重新打开程序，按F5可以反编译，查看程序，发现有很多片段，将Text view转为Graph view。发现片段太多不能转。然后</p>\n<p> <img src=\"/2022/07/17/NepCTF2022wp/image-20220728095718121.png\"><br>原本数值很小，把这个改为一个非常大的值，然后就可以转了<br>转换后缩小发现</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095737728.png\"></p>\n</li>\n</ol>\n<p>Get flag<br>2.    We_can_gone:<br>32位exe程序，用ida打开，搜索字符串，交叉引用找到关键字符串所在的函数。</p>\n<p>发现有几个函数未知，直接下断点动调F8到达这里</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095819370.png\"></p>\n<p>每个函数都点进去看看，发现sub_3B9630()函数有</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095834947.png\"></p>\n<p>可知这里应该与flag有关，并且flag长度为23。F8往下，然后F7进入这个函数</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095902467.png\"></p>\n<p>到这里有个判断，猜测应该是验证输入的flag，看一下dword_46B6E0</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095920171.png\"></p>\n<p>发现已经初始化好了，然后直接提取里面的值</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728095944613.png\"></p>\n<p>尝试提交，正确<br>Flag:NepCTF{U9eT_t0_th3TRUE}</p>\n<p>Misc:<br>1.少见的base：<br>下载得到一张图片，尝试各种处理jpg的工具。使用stegdetect发现是jphide隐写，使用工具jphs解密，得到：KkYWdvCQcLYewSUUy5TtQc9AMa<br>Base挨个试，发现base58时，解密得到flag：flag{Real_qiandao~}</p>\n<ol start=\"2\">\n<li>9点直播：<br>看直播得flag：NepCTF{bad_woman_nb!}</li>\n<li>   陷阱？馅饼！：</li>\n</ol>\n<p>发现有个琼，说明地点在海南，然后通过搜索和观察，得知是光大银行<br>尝试提交，得到正确flag：NepCTF{<a href=\"http://www.cebbank.com}/\">www.cebbank.com}</a><br>4.    问卷：<br>没啥好说的。<br>5.    签到题：<br>由题目可知是套了很多层zip压缩包，网上搜一下批量解压缩包脚本，解出来一个keyboard.pcap文件,用wirshark打开发现是usb流量，使用Tshark提取数据，然后处理一下数据，用脚本跑，可以得到<img src=\"/2022/07/17/NepCTF2022wp/image-20220728100056809.png\"></p>\n<p>提交发现不对，尝试用下划线分隔，得到正确flag：nepctf{welcome_to_nepctf_2nd}<br>6.花花画画花花花<br>下载得到osz文件，搜索发现需要用osu！打开</p>\n<p>右键点击发现可以编辑，</p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728100156982.png\"> 然后发现CTF</p>\n<p> <img src=\"/2022/07/17/NepCTF2022wp/image-20220728100205910.png\"></p>\n<p><img src=\"/2022/07/17/NepCTF2022wp/image-20220728100228968.png\">![image-</p>\n<p>写出来得flag：NepCTF{MASTER_OF_坏女人！}</p>\n",
+            "tags": [
+                "CTF"
+            ]
+        },
+        {
             "id": "http://powerquasar.github.io/2022/06/13/HSCTF-9-1/",
             "url": "http://powerquasar.github.io/2022/06/13/HSCTF-9-1/",
             "title": "HSCTF-9",
