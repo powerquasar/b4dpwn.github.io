@@ -5,10 +5,10 @@
     "home_page_url": "http://powerquasar.github.io",
     "items": [
         {
-            "id": "http://powerquasar.github.io/2022/06/13/HSCTF-9/",
-            "url": "http://powerquasar.github.io/2022/06/13/HSCTF-9/",
+            "id": "http://powerquasar.github.io/2022/06/13/HSCTF-9-1/",
+            "url": "http://powerquasar.github.io/2022/06/13/HSCTF-9-1/",
             "title": "HSCTF-9",
-            "date_published": "2022-06-13T13:35:41.000Z",
+            "date_published": "2022-06-13T01:30:16.000Z",
             "content_html": "<p>下载下来附件后是这样一个简单的python程序</p>\n<pre><code class=\"python\">state = 1\nflag = &quot;[REDACTED]&quot;\nalphabet = &quot;abcdefghijklmnopqrstuvwxyz&quot;\nciphertext = &quot;&quot;\nfor character in flag[5:-1]:\n    state = (15*state+18)%29\n    ciphertext+=alphabet[(alphabet.index(character)+state)%26]\nprint(ciphertext)\n</code></pre>\n<pre><code>#mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw（这是题目描述给的）\n</code></pre>\n<p>直接解</p>\n<pre><code class=\"python\">state = 1\nflag = &quot;&quot;\nalphabet = &quot;abcdefghijklmnopqrstuvwxyz&quot;\nciphertext = &quot;mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw&quot;\nfor i in ciphertext:\n    state = (15*state+18)%29\n    flag+=alphabet[(alphabet.index(i)-state)%26]\nprint(flag)\n\n#iguessthisiswhatyouwouldcallalinearcongruentialvigenerecipher\n</code></pre>\n<p>得到我们的flag,然后根据题目要求再包上flag{}</p>\n",
             "tags": [
                 "crypto"

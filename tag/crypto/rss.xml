@@ -5,18 +5,18 @@
         <link>http://powerquasar.github.io</link>
         <description></description>
         <language>zh-CN</language>
-        <pubDate>Mon, 13 Jun 2022 21:35:41 +0800</pubDate>
-        <lastBuildDate>Mon, 13 Jun 2022 21:35:41 +0800</lastBuildDate>
+        <pubDate>Mon, 13 Jun 2022 09:30:16 +0800</pubDate>
+        <lastBuildDate>Mon, 13 Jun 2022 09:30:16 +0800</lastBuildDate>
         <category>reverse</category>
         <category>ctfshowpwn</category>
         <category>crypto</category>
         <category>pwn</category>
         <item>
-            <guid isPermalink="true">http://powerquasar.github.io/2022/06/13/HSCTF-9/</guid>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/06/13/HSCTF-9-1/</guid>
             <title>HSCTF-9</title>
-            <link>http://powerquasar.github.io/2022/06/13/HSCTF-9/</link>
+            <link>http://powerquasar.github.io/2022/06/13/HSCTF-9-1/</link>
             <category>crypto</category>
-            <pubDate>Mon, 13 Jun 2022 21:35:41 +0800</pubDate>
+            <pubDate>Mon, 13 Jun 2022 09:30:16 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;下载下来附件后是这样一个简单的python程序&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
 flag = &amp;quot;[REDACTED]&amp;quot;

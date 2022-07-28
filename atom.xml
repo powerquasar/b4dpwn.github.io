@@ -94,9 +94,9 @@ print(flag)
         <updated>2022-07-26T04:17:11.000Z</updated>
     </entry>
     <entry>
-        <id>http://powerquasar.github.io/2022/06/13/HSCTF-9/</id>
+        <id>http://powerquasar.github.io/2022/06/13/HSCTF-9-1/</id>
         <title>HSCTF-9</title>
-        <link rel="alternate" href="http://powerquasar.github.io/2022/06/13/HSCTF-9/"/>
+        <link rel="alternate" href="http://powerquasar.github.io/2022/06/13/HSCTF-9-1/"/>
         <content type="html">&lt;p&gt;下载下来附件后是这样一个简单的python程序&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
 flag = &amp;quot;[REDACTED]&amp;quot;
@@ -124,7 +124,7 @@ print(flag)
 &lt;p&gt;得到我们的flag,然后根据题目要求再包上flag{}&lt;/p&gt;
 </content>
         <category term="crypto" />
-        <updated>2022-06-13T13:35:41.000Z</updated>
+        <updated>2022-06-13T01:30:16.000Z</updated>
     </entry>
     <entry>
         <id>http://powerquasar.github.io/2022/05/06/ctfshow1/</id>
