@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>litCTF2022re | powerquasar&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+    <meta name="keywords" content="MinHow,MinHow's Blog" />
+  
+  <meta name="description" content="虽然赛题比较简单，但这里还是记录一下 第一道题math  打开程序是这样的，我们直接看grade_test(一看就知道判断flag的)  可以看到就是简单的把输入与answers数组里面的内容作对比 直接看answer中的内容  可以看到已经初始化好了，直接运行程序输入即可  get flag 第二题也是一道简单题，这里直接偷懒了，没有分析算法，用大佬推荐的angr直接一把梭了。。。 angr具体">
+<meta property="og:type" content="article">
+<meta property="og:title" content="litCTF2022re">
+<meta property="og:url" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/index.html">
+<meta property="og:site_name" content="powerquasar&#39;s blog">
+<meta property="og:description" content="虽然赛题比较简单，但这里还是记录一下 第一道题math  打开程序是这样的，我们直接看grade_test(一看就知道判断flag的)  可以看到就是简单的把输入与answers数组里面的内容作对比 直接看answer中的内容  可以看到已经初始化好了，直接运行程序输入即可  get flag 第二题也是一道简单题，这里直接偷懒了，没有分析算法，用大佬推荐的angr直接一把梭了。。。 angr具体">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728062558723.png">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728062902286.png">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728063232142.png">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728063950760.png">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728064445506.png">
+<meta property="og:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728065019565.png">
+<meta property="article:published_time" content="2022-07-27T22:21:30.000Z">
+<meta property="article:modified_time" content="2022-07-27T22:59:23.786Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="reverse">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://powerquasar.github.io/2022/07/28/litCTF2022re/image-20220728062558723.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+<script src="/js/pace.min.js"></script>
+
+  
+
+  
+  
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+      <header id="header">
+    <div id="banner"></div>
+    <div id="header-outer">
+        <div id="header-menu" class="header-menu-pos animated">
+            <div class="header-menu-container">
+                <a href="/" class="left">
+                    <span class="site-title">powerquasar&#39;s Blog</span>
+                </a>
+                <nav id="header-menu-nav" class="right">
+                    
+                    <a  href="/">
+                        <i class="fa fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                    
+                    <a  href="/archives">
+                        <i class="fa fa-archive"></i>
+                        <span>Archives</span>
+                    </a>
+                    
+                    <a  href="/about">
+                        <i class="fa fa-user"></i>
+                        <span>About</span>
+                    </a>
+                    
+                </nav>
+                <a class="mobile-header-menu-button">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+        <div id="header-row">
+            <div id="logo">
+                <a href="/">
+                    <img src="/images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="header-info">
+                <div id="header-title">
+                    
+                    <h2>
+                        powerquasar&#39;s Blog
+                    </h2>
+                    
+                </div>
+                <div id="header-description">
+                    
+                    <h3>
+                        一个记录学习历程的技术博客
+                    </h3>
+                    
+                </div>
+            </div>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a title="MinHow" target="_blank" href="//minhow.com">
+                            <i class="fa fa-home fa-2x"></i></a>
+                    
+                        <a title="Github" target="_blank" href="//github.com/wongminho">
+                            <i class="fa fa-github fa-2x"></i></a>
+                    
+                        <a title="Weibo" target="_blank" href="//weibo.com/WongMinHo">
+                            <i class="fa fa-weibo fa-2x"></i></a>
+                    
+                        <a title="Twitter" target="_blank" href="//twitter.com/huangminhow">
+                            <i class="fa fa-twitter fa-2x"></i></a>
+                    
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+      <div class="outer">
+        <section id="main" class="body-wrap"><article id="post-litCTF2022re" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="post-title" itemprop="name">
+      litCTF2022re
+    </h1>
+    <div class="post-title-bar">
+      <ul>
+          
+        <li>
+          <i class="fa fa-calendar"></i>  2022-07-28
+        </li>
+        <li>
+          <i class="fa fa-eye"></i>
+          <span id="busuanzi_value_page_pv"></span>
+        </li>
+      </ul>
+    </div>
+  
+
+          
+      </header>
+    
+    <div class="article-entry post-content" itemprop="articleBody">
+      
+            
+            <p>虽然赛题比较简单，但这里还是记录一下</p>
+<p>第一道题math</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728062558723.png"></p>
+<p>打开程序是这样的，我们直接看grade_test(一看就知道判断flag的)</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728062902286.png"></p>
+<p>可以看到就是简单的把输入与answers数组里面的内容作对比</p>
+<p>直接看answer中的内容</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728063232142.png"></p>
+<p>可以看到已经初始化好了，直接运行程序输入即可</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728063950760.png"></p>
+<p>get flag</p>
+<p>第二题也是一道简单题，这里直接偷懒了，没有分析算法，用大佬推荐的angr直接一把梭了。。。</p>
+<p>angr具体的安装和用法可自行搜索</p>
+<p>但回过头来分析，其实也不难</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728064445506.png"></p>
+<p>也就是两个数组里面的值相加等于输入，转为字符即可</p>
+<p>第三题</p>
+<p><img src="/2022/07/28/litCTF2022re/image-20220728065019565.png"></p>
+<p>打开一看，有些懵，查了下~用法，原来，这里是取反运算符。程序逻辑不难，又有明显的关键字，所以直接angr一把梭</p>
+<p>总结：angryyds，它能够帮助我们不需要分析程序算法，快速解决逻辑简单的问题。</p>
+
+            <div class="post-copyright">
+    <div class="content">
+        <p>最后更新： 2022年07月28日 06:59</p>
+        <p>原始链接： <a class="post-url" href="/2022/07/28/litCTF2022re/" title="litCTF2022re">http://powerquasar.github.io/2022/07/28/litCTF2022re/</a></p>
+        <footer>
+            <a href="http://powerquasar.github.io">
+                <img src="/images/logo.png" alt="John Doe">
+                John Doe
+            </a>
+        </footer>
+    </div>
+</div>
+
+      
+        
+            
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;">赏</a>
+</div>
+
+<div id="reward" class="post-modal reward-lay">
+    <a class="close" href="javascript:;" id="reward-close">×</a>
+    <span class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        请我吃糖~
+        <i class="icon icon-quote-right"></i>
+    </span>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
+        </div>
+        <div class="reward-select">
+            
+            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
+                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
+            </label>
+            
+            
+            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
+                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
+            </label>
+            
+        </div>
+    </div>
+</div>
+
+
+        
+    </div>
+    <footer class="article-footer">
+        
+        
+<div class="post-share">
+    <a href="javascript:;" id="share-sub" class="post-share-fab">
+        <i class="fa fa-share-alt"></i>
+    </a>
+    <div class="post-share-list" id="share-list">
+        <ul class="share-icons">
+          <li>
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://powerquasar.github.io/2022/07/28/litCTF2022re/&title=《litCTF2022re》 — powerquasar's blog&pic=http://powerquasar.github.ioimages/logo.png" data-title="微博">
+              <i class="fa fa-weibo"></i>
+            </a>
+          </li>
+          <li>
+            <a class="weixin share-sns" id="wxFab" href="javascript:;" data-title="微信">
+              <i class="fa fa-weixin"></i>
+            </a>
+          </li>
+          <li>
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://powerquasar.github.io/2022/07/28/litCTF2022re/&title=《litCTF2022re》 — powerquasar's blog&source=" data-title="QQ">
+              <i class="fa fa-qq"></i>
+            </a>
+          </li>
+          <li>
+            <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://powerquasar.github.io/2022/07/28/litCTF2022re/" data-title="Facebook">
+              <i class="fa fa-facebook"></i>
+            </a>
+          </li>
+          <li>
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《litCTF2022re》 — powerquasar's blog&url=http://powerquasar.github.io/2022/07/28/litCTF2022re/&via=http://powerquasar.github.io" data-title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+          <li>
+            <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://powerquasar.github.io/2022/07/28/litCTF2022re/" data-title="Google+">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        </ul>
+     </div>
+</div>
+<div class="post-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;" id="wxShare-close">×</a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://powerquasar.github.io/2022/07/28/litCTF2022re/" alt="微信分享二维码">
+</div>
+
+<div class="mask"></div>
+
+        
+        <ul class="article-footer-menu">
+            
+            
+  <li class="article-footer-tags">
+    <i class="fa fa-tags"></i>
+      
+    <a href="/tags/reverse/" class="color3">reverse</a>
+      
+  </li>
+
+        </ul>
+        
+    </footer>
+  </div>
+</article>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2022/07/26/DASCTF20227re/" id="article-nav-older" class="article-nav-link-wrap">
+      <span class="article-nav-title">DASCTF7月赋能赛隐藏的角落</span>
+      <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+    </a>
+  
+</nav>
+
+
+
+    
+
+
+	<div id="gitalk-container"></div>
+	<link rel="stylesheet" href="https://unpkg.com/gitalk@latest/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+<script src="https://priesttomb.github.io/js/md5.min.js"></script>
+<script type="text/javascript">
+    new Gitalk({
+        clientID: '3b6963dad264c92dd42e',
+        clientSecret: 'db4bd32d2b7841d4d252fda6944facf9c551e75c',
+        repo: 'powerquasar.github.io',
+        owner: 'powerquasar',
+        admin: 'powerquasar',
+        id: md5(location.pathname),
+        distractionFreeMode: true
+    }).render('gitalk-container')
+</script>
+
+</section>
+        
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+      <p>
+        Powered by  <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Theme <a href="//github.com/wongminho/hexo-theme-miho" target="_blank">MiHo</a>
+      &copy; 2022 John Doe<br>
+      </p>
+    </div>
+  </div>
+</footer>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var mihoConfig = {
+      root: "http://powerquasar.github.io",
+      animate: true,
+      isHome: false,
+      share: true,
+      reward: 1
+  }
+</script>
+<div class="sidebar">
+    <div id="sidebar-search" title="Search">
+        <i class="fa fa-search"></i>
+    </div>
+    <div id="sidebar-category" title="Categories">
+        <i class="fa fa-book"></i>
+    </div>
+    <div id="sidebar-tag" title="Tags">
+        <i class="fa fa-tags"></i>
+    </div>
+    <div id="sidebar-top">
+        <span class="sidebar-top-icon"><i class="fa fa-angle-up"></i></span>
+    </div>
+</div>
+<div class="sidebar-menu-box" id="sidebar-menu-box">
+    <div class="sidebar-menu-box-container">
+        <div id="sidebar-menu-box-categories">
+            
+        </div>
+        <div id="sidebar-menu-box-tags">
+            <a href="/tags/ctfshowpwn/" style="font-size: 10px;">ctfshowpwn</a> <a href="/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/tags/reverse/" style="font-size: 20px;">reverse</a>
+        </div>
+    </div>
+    <a href="javascript:;" class="sidebar-menu-box-close">&times;</a>
+</div>
+<div class="mobile-header-menu-nav" id="mobile-header-menu-nav">
+    <div class="mobile-header-menu-container">
+        <span class="title">Menus</span>
+        <ul class="mobile-header-menu-navbar">
+            
+            <li>
+                <a  href="/">
+                    <i class="fa fa-home"></i><span>Home</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/archives">
+                    <i class="fa fa-archive"></i><span>Archives</span>
+                </a>
+            </li>
+            
+            <li>
+                <a  href="/about">
+                    <i class="fa fa-user"></i><span>About</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    <div class="mobile-header-tag-container">
+        <span class="title">Tags</span>
+        <div id="mobile-header-container-tags">
+            <a href="/tags/ctfshowpwn/" style="font-size: 10px;">ctfshowpwn</a> <a href="/tags/pwn/" style="font-size: 10px;">pwn</a> <a href="/tags/reverse/" style="font-size: 20px;">reverse</a>
+        </div>
+    </div>
+</div>
+<div class="search-wrap">
+    <span class="search-close">&times;</span>
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+            <i class="icon icon-lg icon-chevron-left"></i>
+        </a>
+        <input class="search-field" placeholder="Search..." id="keywords">
+        <a id="search-submit" href="javascript:;">
+            <i class="fa fa-search"></i>
+        </a>
+    <div class="search-container" id="search-container">
+        <ul class="search-result" id="search-result">
+        </ul>
+    </div>
+</div>
+
+<div id="search-tpl">
+    <li class="search-result-item">
+        <a href="{url}" class="search-item-li">
+            <span class="search-item-li-title" title="{title}">{title}</span>
+        </a>
+    </li>
+</div>
+
+<script src="/js/search.js"></script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
+  <div id="particles"></div>
+  
+<script src="/js/particles.js"></script>
+
+
+
+
+
+
+
+
+  
+<link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+
+  <script src="//cdn.bootcss.com/scrollReveal.js/3.0.5/scrollreveal.js"></script>
+  
+<script src="/js/animate.js"></script>
+
+
+
+  
+<script src="/js/pop-img.js"></script>
+
+  <script>
+     $(".article-entry p img").popImg();
+  </script>
+
+  </div>
+</body>
+</html>

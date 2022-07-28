@@ -1,0 +1,18 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "powerquasar's blog • All posts by \"pwn\" tag",
+    "description": "",
+    "home_page_url": "http://powerquasar.github.io",
+    "items": [
+        {
+            "id": "http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/",
+            "url": "http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/",
+            "title": "pwn enter the door",
+            "date_published": "2022-05-05T05:45:30.000Z",
+            "content_html": "<p><strong>#入门：elf文件，汇编指令，c语言编程基础</strong></p>\n<ol>\n<li><strong>栈部分</strong><br><strong>前提，理解函数调用栈的运作机制：<a href=\"https://www.bilibili.com/video/BV1Cv411T7W3?from=search&amp;seid=5444614129123787600&amp;spm_id_from=333.337.0.0%E8%BF%99%E9%87%8C%E5%8F%AF%E4%BB%A5%E9%80%89%E9%9B%86%EF%BC%8Cppt%E5%BE%88%E5%BD%A2%E8%B1%A1\">https://www.bilibili.com/video/BV1Cv411T7W3?from=search&amp;seid=5444614129123787600&amp;spm_id_from=333.337.0.0这里可以选集，ppt很形象</a></strong><br><strong>（1）栈溢出：程序在创建局部变量或进行函数调用时的同时会申请一块与其数据类型对应的内存，这个内存我们称之为栈，栈是一种先入后出的数据结构，就好比往一个瓶子里放东西，先放进去的后出来。详细函数调用栈的内容看上面的链接。栈溢出指的是程序向栈中某个变量中写入的字节数超过了这个变量本身所申请的字节数，因而导致与其相邻的栈中的变量的值被改变。类似的还有堆溢出，bss 段溢出等溢出方式。栈溢出漏洞轻则可以使程序崩溃，重则可以使攻击者控制程序执行流程。整形是4个字节以计算，char型一字节一计算</strong><br><strong>发生栈溢出的基本前提是：</strong><br><strong>首先程序必须向栈上写入数据</strong><br><strong>写入的数据大小没有被良好的控制</strong><br><strong>最典型的栈溢出利用是覆盖程序的返回地址为攻击者所控制的地址，当然需要确保这个地址所在的段具有可执行权限。往栈上写入数据是从低地址往高地址写的，也就是说如果我们覆盖了ebp(32位下)/rbp(64位下)即函数的栈底指针的值，我们就可以篡改其后的返回地址为我们想要实现的函数的地址。</strong><br><strong>常见的危险函数：gets:直接读取一行，忽略\\x00,并且遇到\\n才结束读取。</strong><pre><code>                      **scanf:遇到\\n就会结束，但如果下面的还是输入，就会把\\n放到下面，导致下面的输入被直接跳过了**\n                      **printf:不会在结尾处加上\\0**\n                      **strcpy，字符串复制，遇到&#39;\\x00&#39;停止**\n                      **strcat，字符串拼接，遇到&#39;\\x00&#39;停止**\n</code></pre>\n</li>\n</ol>\n<ol start=\"2\">\n<li><strong>格式化字符串漏洞:</strong><br>  <strong>原理：当我们使用printf打印字符串时，我们一般设置其第一个参数为格式化字符串，后面的参数为格式化字符串要表示的变量。而当我们直接将后面的变量当作printf的第一个参数传入时，程序非但没有报错，而且还正常运行了，这是怎么回事呢？其实这是因为printf函数并不知道参数个数，它的内部有个指针，⽤来索检格式化字符串。对于特定类型%，就去取相应参数的值，直到索检到</strong><br>  <strong>格式化字符串结束。</strong><br>  <strong>所以尽管没有参数，上⾯的代码也会将format string 后⾯的内存当做参数以16进制输出。这样就会造成内存泄露。</strong><br>  <strong>而这种情况只是在用户输入下才会发生。</strong></li>\n</ol>\n",
+            "tags": [
+                "pwn"
+            ]
+        }
+    ]
+}

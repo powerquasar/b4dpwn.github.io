@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>powerquasar&#39;s blog</title>
+        <link>http://powerquasar.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Thu, 28 Jul 2022 06:21:30 +0800</pubDate>
+        <lastBuildDate>Thu, 28 Jul 2022 06:21:30 +0800</lastBuildDate>
+        <category>ctfshowpwn</category>
+        <category>reverse</category>
+        <category>pwn</category>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/07/28/litCTF2022re/</guid>
+            <title>litCTF2022re</title>
+            <link>http://powerquasar.github.io/2022/07/28/litCTF2022re/</link>
+            <category>reverse</category>
+            <pubDate>Thu, 28 Jul 2022 06:21:30 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;虽然赛题比较简单，但这里还是记录一下&lt;/p&gt;
+&lt;p&gt;第一道题math&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728062558723.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;打开程序是这样的，我们直接看grade_test(一看就知道判断flag的)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728062902286.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到就是简单的把输入与answers数组里面的内容作对比&lt;/p&gt;
+&lt;p&gt;直接看answer中的内容&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728063232142.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到已经初始化好了，直接运行程序输入即可&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728063950760.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;get flag&lt;/p&gt;
+&lt;p&gt;第二题也是一道简单题，这里直接偷懒了，没有分析算法，用大佬推荐的angr直接一把梭了。。。&lt;/p&gt;
+&lt;p&gt;angr具体的安装和用法可自行搜索&lt;/p&gt;
+&lt;p&gt;但回过头来分析，其实也不难&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728064445506.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;也就是两个数组里面的值相加等于输入，转为字符即可&lt;/p&gt;
+&lt;p&gt;第三题&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/28/litCTF2022re/image-20220728065019565.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;打开一看，有些懵，查了下~用法，原来，这里是取反运算符。程序逻辑不难，又有明显的关键字，所以直接angr一把梭&lt;/p&gt;
+&lt;p&gt;总结：angryyds，它能够帮助我们不需要分析程序算法，快速解决逻辑简单的问题。&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/07/26/DASCTF20227re/</guid>
+            <title>DASCTF7月赋能赛隐藏的角落</title>
+            <link>http://powerquasar.github.io/2022/07/26/DASCTF20227re/</link>
+            <category>reverse</category>
+            <pubDate>Tue, 26 Jul 2022 12:17:11 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;查看程序为64位elf文件，并使用go语言编写。用ida647.7打开。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726124255933.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;直接定位到checkflag&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726124437537.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;进入main_Myencode函数&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726124632437.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以明显看到是rc4加密&lt;/p&gt;
+&lt;p&gt;然后动调获取key或者s盒&lt;/p&gt;
+&lt;p&gt;注：这里踩了一个坑&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726124842408.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;一开始以为密文就放在了main_enc里面。导致接出来是一串乱码&lt;/p&gt;
+&lt;p&gt;其实这里需要动态调试&lt;/p&gt;
+&lt;p&gt;经过测试，这里需要输入二十九个字符才能断下来&lt;/p&gt;
+&lt;p&gt;断下来之后再f8两次&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726125712802.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以看到s盒已经为我们初始化好了&lt;/p&gt;
+&lt;p&gt;用ida脚本提取即可&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726130516468.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后重新运行程序&lt;/p&gt;
+&lt;p&gt;注：经过调试，发现只能在加密函数那里下断点，在后面的两个位置下断点程序会崩溃。（呜呜呜，本菜鸡也不知道为啥，有知道的师傅可以在下方评论区留言）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726131502977.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后提取main_enc的值时，可以发现，此时的值与之前的不一样了。之前的值就是个烟雾弹。。。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/2022/07/26/DASCTF20227re/image-20220726131734504.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;然后提取，写出解密脚本&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;python&#34;&gt;import base64
+s=[0x92, 0xDD, 0x48, 0x62, 0xB9, 0x91, 0xE2, 0x86, 0xF9, 0x76, 0x27, 0x6A, 0x49, 0x4E, 0xD2, 0x7D, 0xC7, 0x43, 0xC9, 0x42, 0xB3, 0xCD, 0xD5, 0x6E, 0x10, 0xC2, 0xD0, 0x5F, 0xF5, 0x69, 0xFA, 0x82, 0x3B, 0xCB, 0x2E, 0xBC, 0x54, 0x1B, 0xA4, 0xCE, 0x30, 0x37, 0xD9, 0x4D, 0x64, 0x3C, 0xDA, 0x5D, 0x38, 0x2C, 0x8E, 0x20, 0xB4, 0x55, 0xFE, 0x58, 0x3E, 0x8D, 0x32, 0xEE, 0xD7, 0x85, 0x34, 0x99, 0x28, 0xEA, 0x60, 0xFF, 0x21, 0x53, 0x2B, 0xC3, 0xE, 0x72, 0x90, 0xE3, 0x5E, 0xA6, 0x29, 0x9C, 0xDC, 0xBE, 0xBD, 0x6B, 0x15, 0xDE, 0xB2, 0x0, 0x8F, 0xFB, 0xA2, 0x7F, 0x74, 0x1A, 0x83, 0xE1, 0x63, 0x23, 0xF3, 0xF0, 0x2, 0x1E, 0x9E, 0xA7, 0x50, 0xD1, 0xCF, 0x6C, 0x71, 0x79, 0x13, 0x8, 0x88, 0x8B, 0x1, 0x25, 0x67, 0x80, 0xC4, 0xEF, 0x45, 0x41, 0x52, 0x6D, 0xAE, 0x4C, 0xF, 0xEC, 0x87, 0xAF, 0x7E, 0x97, 0x35, 0xF6, 0x81, 0xE5, 0x9B, 0xD, 0xE7, 0x2D, 0x5A, 0xC1, 0xA9, 0x51, 0xDB, 0x6F, 0x8A, 0xB1, 0x98, 0x73, 0xAC, 0x4F, 0x65, 0xAD, 0x7, 0x7B, 0x18, 0xE9, 0xF1, 0xDF, 0xB8, 0x5, 0xB0, 0x11, 0x70, 0xE6, 0xC5, 0x17, 0x12, 0x16, 0x3A, 0x44, 0x6, 0x8C, 0xE8, 0x31, 0x75, 0x3, 0x9A, 0xFD, 0x61, 0x3F, 0x2A, 0xF8, 0xD8, 0x46, 0x39, 0xBF, 0x78, 0xA8, 0xF4, 0xA, 0x4, 0xE4, 0x57, 0xB6, 0x22, 0x84, 0xE0, 0xF7, 0xC8, 0x7A, 0x1C, 0xA1, 0x5C, 0xC0, 0x7C, 0xC, 0xC6, 0x36, 0xB5, 0xCC, 0xD6, 0xBA, 0x9, 0xFC, 0xBB, 0x68, 0x96, 0x47, 0x1F, 0x4A, 0x9D, 0xED, 0x95, 0xA5, 0x93, 0xD4, 0xCA, 0xAA, 0x26, 0xB, 0x5B, 0x40, 0xB7, 0x66, 0x56, 0xAB, 0x33, 0xA0, 0x9F, 0xF2, 0x59, 0x89, 0x1D, 0x19, 0x3D, 0x94, 0x24, 0xA3, 0xEB, 0xD3, 0x2F, 0x77, 0x14,0x4B ]
+enc=[  0xFB, 0xC6, 0xA6, 0x9D, 0xC4, 0xDB, 0x7B, 0x56, 0xB6, 0x46,
+  0xA6, 0xC0, 0x85, 0x64, 0x7A, 0x9A, 0x37, 0x4C, 0x10, 0x96,
+  0xE9, 0xA7, 0x28, 0xC4, 0xB1, 0x2D, 0xF1, 0xDE, 0x47, 0x3B,
+  0xB5, 0xF3, 0x2C, 0x7D, 0x67, 0x1D]
+i=0
+j=0
+t=0
+for k in range(len(enc)):
+  i=(i+1)%256
+  j=(j+s[i])%256
+  tmp=s[i]
+  s[i]=s[j]
+  s[j]=tmp
+  t=(s[i]+s[j])%256
+  enc[k]^=s[t]
+flag=&amp;#39;&amp;#39;
+for i in range(len(enc)):
+  flag+=chr(enc[i])
+print(flag)
+#56e83694-f976-11eb-b343-faffc201c8e0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;然后根据题意，将得到的值md5一下，然后再包上DASCTF{}即可&lt;/p&gt;
+&lt;p&gt;完结，撒花&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/05/06/ctfshow1/</guid>
+            <title>ctfshow1</title>
+            <link>http://powerquasar.github.io/2022/05/06/ctfshow1/</link>
+            <category>ctfshowpwn</category>
+            <pubDate>Fri, 06 May 2022 10:07:07 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/</guid>
+            <title>pwn enter the door</title>
+            <link>http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/</link>
+            <category>pwn</category>
+            <pubDate>Thu, 05 May 2022 13:45:30 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;&lt;strong&gt;#入门：elf文件，汇编指令，c语言编程基础&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;栈部分&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;前提，理解函数调用栈的运作机制：&lt;a href=&#34;https://www.bilibili.com/video/BV1Cv411T7W3?from=search&amp;amp;seid=5444614129123787600&amp;amp;spm_id_from=333.337.0.0%E8%BF%99%E9%87%8C%E5%8F%AF%E4%BB%A5%E9%80%89%E9%9B%86%EF%BC%8Cppt%E5%BE%88%E5%BD%A2%E8%B1%A1&#34;&gt;https://www.bilibili.com/video/BV1Cv411T7W3?from=search&amp;amp;seid=5444614129123787600&amp;amp;spm_id_from=333.337.0.0这里可以选集，ppt很形象&lt;/a&gt;&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;（1）栈溢出：程序在创建局部变量或进行函数调用时的同时会申请一块与其数据类型对应的内存，这个内存我们称之为栈，栈是一种先入后出的数据结构，就好比往一个瓶子里放东西，先放进去的后出来。详细函数调用栈的内容看上面的链接。栈溢出指的是程序向栈中某个变量中写入的字节数超过了这个变量本身所申请的字节数，因而导致与其相邻的栈中的变量的值被改变。类似的还有堆溢出，bss 段溢出等溢出方式。栈溢出漏洞轻则可以使程序崩溃，重则可以使攻击者控制程序执行流程。整形是4个字节以计算，char型一字节一计算&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;发生栈溢出的基本前提是：&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;首先程序必须向栈上写入数据&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;写入的数据大小没有被良好的控制&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;最典型的栈溢出利用是覆盖程序的返回地址为攻击者所控制的地址，当然需要确保这个地址所在的段具有可执行权限。往栈上写入数据是从低地址往高地址写的，也就是说如果我们覆盖了ebp(32位下)/rbp(64位下)即函数的栈底指针的值，我们就可以篡改其后的返回地址为我们想要实现的函数的地址。&lt;/strong&gt;&lt;br&gt;&lt;strong&gt;常见的危险函数：gets:直接读取一行，忽略\x00,并且遇到\n才结束读取。&lt;/strong&gt;&lt;pre&gt;&lt;code&gt;                      **scanf:遇到\n就会结束，但如果下面的还是输入，就会把\n放到下面，导致下面的输入被直接跳过了**
+                      **printf:不会在结尾处加上\0**
+                      **strcpy，字符串复制，遇到&amp;#39;\x00&amp;#39;停止**
+                      **strcat，字符串拼接，遇到&amp;#39;\x00&amp;#39;停止**
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;&lt;strong&gt;格式化字符串漏洞:&lt;/strong&gt;&lt;br&gt;  &lt;strong&gt;原理：当我们使用printf打印字符串时，我们一般设置其第一个参数为格式化字符串，后面的参数为格式化字符串要表示的变量。而当我们直接将后面的变量当作printf的第一个参数传入时，程序非但没有报错，而且还正常运行了，这是怎么回事呢？其实这是因为printf函数并不知道参数个数，它的内部有个指针，⽤来索检格式化字符串。对于特定类型%，就去取相应参数的值，直到索检到&lt;/strong&gt;&lt;br&gt;  &lt;strong&gt;格式化字符串结束。&lt;/strong&gt;&lt;br&gt;  &lt;strong&gt;所以尽管没有参数，上⾯的代码也会将format string 后⾯的内存当做参数以16进制输出。这样就会造成内存泄露。&lt;/strong&gt;&lt;br&gt;  &lt;strong&gt;而这种情况只是在用户输入下才会发生。&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/05/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%EF%BC%8Chello-hexo/</guid>
+            <title>我的第一篇博客，hello hexo</title>
+            <link>http://powerquasar.github.io/2022/05/04/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2%EF%BC%8Chello-hexo/</link>
+            <pubDate>Wed, 04 May 2022 18:10:47 +0800</pubDate>
+            <description><![CDATA[  ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/05/04/hello-world/</guid>
+            <title>Hello World</title>
+            <link>http://powerquasar.github.io/2022/05/04/hello-world/</link>
+            <pubDate>Wed, 04 May 2022 18:01:12 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;Welcome to &lt;a href=&#34;https://hexo.io/&#34;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&#34;https://hexo.io/docs/&#34;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&#34;https://hexo.io/docs/troubleshooting.html&#34;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&#34;https://github.com/hexojs/hexo/issues&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;Quick-Start&#34;&gt;&lt;a href=&#34;#Quick-Start&#34; class=&#34;headerlink&#34; title=&#34;Quick Start&#34;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&#34;Create-a-new-post&#34;&gt;&lt;a href=&#34;#Create-a-new-post&#34; class=&#34;headerlink&#34; title=&#34;Create a new post&#34;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;$ hexo new &amp;quot;My New Post&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&#34;https://hexo.io/docs/writing.html&#34;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;Run-server&#34;&gt;&lt;a href=&#34;#Run-server&#34; class=&#34;headerlink&#34; title=&#34;Run server&#34;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;$ hexo server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&#34;https://hexo.io/docs/server.html&#34;&gt;Server&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;Generate-static-files&#34;&gt;&lt;a href=&#34;#Generate-static-files&#34; class=&#34;headerlink&#34; title=&#34;Generate static files&#34;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;$ hexo generate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&#34;https://hexo.io/docs/generating.html&#34;&gt;Generating&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;Deploy-to-remote-sites&#34;&gt;&lt;a href=&#34;#Deploy-to-remote-sites&#34; class=&#34;headerlink&#34; title=&#34;Deploy to remote sites&#34;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;pre&gt;&lt;code class=&#34;bash&#34;&gt;$ hexo deploy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&#34;https://hexo.io/docs/one-command-deployment.html&#34;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
