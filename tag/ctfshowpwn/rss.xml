@@ -7,8 +7,9 @@
         <language>zh-CN</language>
         <pubDate>Fri, 06 May 2022 10:07:07 +0800</pubDate>
         <lastBuildDate>Fri, 06 May 2022 10:07:07 +0800</lastBuildDate>
-        <category>ctfshowpwn</category>
         <category>reverse</category>
+        <category>ctfshowpwn</category>
+        <category>crypto</category>
         <category>pwn</category>
         <item>
             <guid isPermalink="true">http://powerquasar.github.io/2022/05/06/ctfshow1/</guid>

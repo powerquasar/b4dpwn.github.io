@@ -4,8 +4,9 @@
     <title>powerquasar&#39;s blog • Posts by &#34;pwn&#34; tag</title>
     <link href="http://powerquasar.github.io" />
     <updated>2022-05-05T05:45:30.000Z</updated>
-    <category term="ctfshowpwn" />
     <category term="reverse" />
+    <category term="ctfshowpwn" />
+    <category term="crypto" />
     <category term="pwn" />
     <entry>
         <id>http://powerquasar.github.io/2022/05/05/pwn-enter-the-door/</id>

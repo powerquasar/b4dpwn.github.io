@@ -7,8 +7,9 @@
         <language>zh-CN</language>
         <pubDate>Thu, 28 Jul 2022 06:21:30 +0800</pubDate>
         <lastBuildDate>Thu, 28 Jul 2022 06:21:30 +0800</lastBuildDate>
-        <category>ctfshowpwn</category>
         <category>reverse</category>
+        <category>ctfshowpwn</category>
+        <category>crypto</category>
         <category>pwn</category>
         <item>
             <guid isPermalink="true">http://powerquasar.github.io/2022/07/28/litCTF2022re/</guid>
@@ -93,6 +94,39 @@ print(flag)
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;然后根据题意，将得到的值md5一下，然后再包上DASCTF{}即可&lt;/p&gt;
 &lt;p&gt;完结，撒花&lt;/p&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/06/13/HSCTF-9/</guid>
+            <title>HSCTF-9</title>
+            <link>http://powerquasar.github.io/2022/06/13/HSCTF-9/</link>
+            <category>crypto</category>
+            <pubDate>Mon, 13 Jun 2022 21:35:41 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;下载下来附件后是这样一个简单的python程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
+flag = &amp;quot;[REDACTED]&amp;quot;
+alphabet = &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot;
+ciphertext = &amp;quot;&amp;quot;
+for character in flag[5:-1]:
+    state = (15*state+18)%29
+    ciphertext+=alphabet[(alphabet.index(character)+state)%26]
+print(ciphertext)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;#mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw（这是题目描述给的）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;直接解&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
+flag = &amp;quot;&amp;quot;
+alphabet = &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot;
+ciphertext = &amp;quot;mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw&amp;quot;
+for i in ciphertext:
+    state = (15*state+18)%29
+    flag+=alphabet[(alphabet.index(i)-state)%26]
+print(flag)
+
+#iguessthisiswhatyouwouldcallalinearcongruentialvigenerecipher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到我们的flag,然后根据题目要求再包上flag{}&lt;/p&gt;
  ]]></description>
         </item>
         <item>

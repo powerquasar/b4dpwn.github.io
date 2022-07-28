@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>powerquasar&#39;s blog • Posts by &#34;crypto&#34; tag</title>
+        <link>http://powerquasar.github.io</link>
+        <description></description>
+        <language>zh-CN</language>
+        <pubDate>Mon, 13 Jun 2022 21:35:41 +0800</pubDate>
+        <lastBuildDate>Mon, 13 Jun 2022 21:35:41 +0800</lastBuildDate>
+        <category>reverse</category>
+        <category>ctfshowpwn</category>
+        <category>crypto</category>
+        <category>pwn</category>
+        <item>
+            <guid isPermalink="true">http://powerquasar.github.io/2022/06/13/HSCTF-9/</guid>
+            <title>HSCTF-9</title>
+            <link>http://powerquasar.github.io/2022/06/13/HSCTF-9/</link>
+            <category>crypto</category>
+            <pubDate>Mon, 13 Jun 2022 21:35:41 +0800</pubDate>
+            <description><![CDATA[ &lt;p&gt;下载下来附件后是这样一个简单的python程序&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
+flag = &amp;quot;[REDACTED]&amp;quot;
+alphabet = &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot;
+ciphertext = &amp;quot;&amp;quot;
+for character in flag[5:-1]:
+    state = (15*state+18)%29
+    ciphertext+=alphabet[(alphabet.index(character)+state)%26]
+print(ciphertext)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;#mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw（这是题目描述给的）
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;直接解&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;python&#34;&gt;state = 1
+flag = &amp;quot;&amp;quot;
+alphabet = &amp;quot;abcdefghijklmnopqrstuvwxyz&amp;quot;
+ciphertext = &amp;quot;mawhxyovhiiupukqnzdekudetmjmefkqjgmqndgtnrxqxludegwovdcdmjjhw&amp;quot;
+for i in ciphertext:
+    state = (15*state+18)%29
+    flag+=alphabet[(alphabet.index(i)-state)%26]
+print(flag)
+
+#iguessthisiswhatyouwouldcallalinearcongruentialvigenerecipher
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;得到我们的flag,然后根据题目要求再包上flag{}&lt;/p&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>
